@@ -31,6 +31,10 @@ THE SOFTWARE.
 /*                         Defines, typedefs, etc.                          */
 /****************************************************************************/
 
+#define MALLOC(sz) __threadscan_alloc(sz)
+#define FREE(ptr) __threadscan_free(ptr)
+#define MALLOC_USABLE_SIZE(ptr) __threadscan_usable_size(ptr)
+
 #define FOREACH_IN_THREAD_LIST(td, tl) do { \
     pthread_mutex_lock(&(tl)->lock);        \
     (td) = (tl)->head;                      \
@@ -136,5 +140,7 @@ void threadscan_fatal (const char *format, ...);
 
 void threadscan_util_randomize (size_t *addrs, int n);
 void threadscan_util_sort (size_t *a, int length);
+
+extern void (*__threadscan_free) (void *);
 
 #endif // !defined _UTIL_H_

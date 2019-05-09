@@ -278,3 +278,7 @@ void threadscan_util_randomize (size_t *addrs, int n)
         }
     }
 }
+
+extern void __super_free (void *);
+
+void (*__threadscan_free) (void *) = free;

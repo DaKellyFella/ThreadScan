@@ -339,7 +339,7 @@ static int handle_unreferenced_ptrs (size_t *addrs, int count)
             addrs[i] = 0;
             ++write_position;
         } else {                         // No remaining references.
-            free((void*)addrs[i]);
+            __threadscan_free((void*)addrs[i]);
             addrs[i] = 0;
         }
     }
@@ -483,6 +483,14 @@ static void *search_self_stack (void *arg)
 
     // Go back to work.
     return NULL;
+}
+
+/**
+ * Set the allocator for Threadscan to use: malloc, free, malloc_usable_size.
+ */
+void threadscan_set_free (void (*dealloc) (void *))
+{
+    __threadscan_free = dealloc;
 }
 
 /**

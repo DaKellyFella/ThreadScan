@@ -42,6 +42,11 @@ extern void threadscan_collect (void *ptr);
  */
 extern void threadscan_register_local_block (void *addr, size_t size);
 
+/**
+ * Set the allocator for Threadscan to use: free.
+ */
+extern void threadscan_set_free (void (*dealloc) (void *));
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

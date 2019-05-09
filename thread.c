@@ -79,6 +79,13 @@ void *threadscan_thread_base (void *arg)
     td->self = pthread_self();
     td->is_active = 1;
 
+    // NOTE: On some compilers alloca doesn't increase the stack pointer.
+    // This assembly seems to trigger the stack pointer change.
+    __asm__("movq %%rsp, %0"
+            : "=m"(sp)
+            : "r"("%rsp")
+            : );
+
     // Call the user thread.  Exit with the return code when complete.
     pthread_exit(td->user_routine(td->user_arg));
 

@@ -11,7 +11,7 @@ THREADSCAN_OBJ = $(THREADSCAN_SRC:.c=.o)
 
 # The -fno-zero-initialized-in-bss flag appears to be busted.
 #CFLAGS = -fno-zero-initialized-in-bss
-CFLAGS := -O2
+CFLAGS := -O3
 ifndef DEBUG
 	CFLAGS := $(CFLAGS) -DNDEBUG
 endif
